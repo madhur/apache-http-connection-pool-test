@@ -19,7 +19,7 @@ import java.net.SocketException;
 @EnableAutoConfiguration
 public class ApplicationConfig
 {
-	private final int CONN_TIMEOUT_MS = 5000;
+	private final int CONN_TIMEOUT_MS = 1000;
 	private final int CONN_REQUEST_TIMEOUT_MS = 60000;
 	private final int CONN_SOCKET_TIMEOUT_MS = 60000;
 	private final int MAX_RETRIES = 3;

@@ -16,7 +16,6 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.io.IOException;
@@ -51,7 +50,15 @@ public class ApplicationConfigTest
 	@Test
 	public void makeHttpRequestsWithoutClosingResponse() {
 		for(int i=0;i<50;++i) {
-			makeHttpRequest(i);
+			makeHttpRequestsWithoutClosingResponse(i);
+		}
+		System.out.println(createHttpInfo(applicationConfig.connectionManager));
+	}
+
+	@Test
+	public void makeHttpRequestAndUseResponse() {
+		for(int i=0;i<50;++i) {
+			makeHttpRequestAndUseResponse(i);
 		}
 		System.out.println(createHttpInfo(applicationConfig.connectionManager));
 	}
@@ -80,12 +87,27 @@ public class ApplicationConfigTest
 		System.out.println(createHttpInfo(applicationConfig.connectionManager));
 	}
 
-	private void makeHttpRequest(int i) {
+	private void makeHttpRequestsWithoutClosingResponse(int i) {
 		System.out.println("Executing request number: " + i);
 		HttpGet httpGet = new HttpGet();
 		httpGet.setURI(URI.create(url));
 		try {
 			HttpResponse response = httpClient.execute(httpGet);
+		} catch (IOException e) {
+			System.err.println(e.getMessage());
+			System.out.println(createHttpInfo(applicationConfig.connectionManager));
+			Assert.fail("Connection timeout at request number: " + i);
+		}
+	}
+
+	private void makeHttpRequestAndUseResponse(int i) {
+		System.out.println("Executing request number: " + i);
+		HttpGet httpGet = new HttpGet();
+		httpGet.setURI(URI.create(url));
+		String responseStr = null;
+		try {
+			HttpResponse response = httpClient.execute(httpGet);
+			responseStr = EntityUtils.toString(response.getEntity());
 		} catch (IOException e) {
 			System.err.println(e.getMessage());
 			System.out.println(createHttpInfo(applicationConfig.connectionManager));
