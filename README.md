@@ -1,1 +1,1 @@
-## Sample code for the blog article [Lessons learnt using Apache HTTP Connection Pooling Library]([https://www.madhur.co.in/blog/2023/01/23/monitoring-guava-cache-statistics.html](https://www.madhur.co.in/blog/2020/03/22/prevent-connection-leak-apache-http.html))
+## Sample code for the blog article [Lessons learnt using Apache HTTP Connection Pooling Library](https://www.madhur.co.in/blog/2023/01/23/monitoring-guava-cache-statistics.html](https://www.madhur.co.in/blog/2020/03/22/prevent-connection-leak-apache-http.html)
